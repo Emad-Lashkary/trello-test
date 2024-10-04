@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-brand-500);
+  color: var(--color-brand-100);
+  padding: 1rem 3rem;
+  width: 100vw;
+}
+
+.header span {
+  font-family: serif;
+  border-bottom: 1px solid;
+  padding: 0 2rem;
+  font-size: 3rem;
+}
+
+.icon {
+  font-size: 3.2rem;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border-bottom: 1px solid;
+  padding: 0 2rem;
+}
+
+.navigation li {
+  list-style: none;
+}
