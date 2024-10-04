@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./listsTable.module.css";
 import List from "./List";
-import { FaPlus } from "react-icons/fa";
 import Button from "../ui/Button";
 
 function ListsTable() {

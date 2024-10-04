@@ -1,27 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./List.module.css";
-import { FaPlus, FaEdit } from "react-icons/fa";
 import Button from "../ui/Button";
+import Card from "./Card";
 
 function List({ list, updateCards }) {
   // State to manage the list of cards
   const [cards, setCards] = useState(list.cards);
   // State to track which card is being edited
   const [editingIndex, setEditingIndex] = useState(null);
-  // Ref to new card input field
-  const newCardRef = useRef(null);
 
   // To update the cards state when the list prop changes
   useEffect(() => {
     setCards(list.cards);
   }, [list.cards]);
-
-  // To focus on new card input field when a new card add
-  useEffect(() => {
-    if (newCardRef.current) {
-      newCardRef.current.focus();
-    }
-  }, [cards]);
 
   // Function to add a new card to the list
   function addCard() {
@@ -65,27 +56,16 @@ function List({ list, updateCards }) {
       <h3>{list.title}</h3>
       <ul className={styles.cards}>
         {cards.map((card, index) => (
-          <li key={index} className={styles.card}>
-            {editingIndex === index ? (
-              <input
-                type="text"
-                value={card}
-                onChange={(e) => handleCardChange(index, e)}
-                onBlur={handleBlur}
-                onKeyDown={handleKeyDown}
-                ref={newCardRef}
-                className={styles.cardInput}
-              />
-            ) : (
-              <div className={styles.cardContent}>
-                {card}
-                <FaEdit
-                  className={styles.editIcon}
-                  onClick={() => handleEditClick(index)}
-                />
-              </div>
-            )}
-          </li>
+          <Card
+            key={index}
+            card={card}
+            index={index}
+            editingIndex={editingIndex}
+            handleCardChange={handleCardChange}
+            handleEditClick={handleEditClick}
+            handleBlur={handleBlur}
+            handleKeyDown={handleKeyDown}
+          />
         ))}
       </ul>
       <Button onClick={addCard}>Add new Card</Button>
