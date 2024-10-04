@@ -1,5 +1,5 @@
+import styles from "./ListsTable.module.css";
 import { useState } from "react";
-import styles from "./listsTable.module.css";
 import List from "./List";
 import Button from "../ui/Button";
 
