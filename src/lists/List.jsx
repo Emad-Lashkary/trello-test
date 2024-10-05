@@ -3,7 +3,7 @@ import styles from "./List.module.css";
 import Button from "../ui/Button";
 import Card from "./Card";
 
-function List({ list, updateCards }) {
+function List({ list, updateCards, removeList }) {
   // State to manage the list of cards
   const [cards, setCards] = useState(list.cards);
   // State to track which card is being edited
@@ -14,7 +14,7 @@ function List({ list, updateCards }) {
     setCards(list.cards);
   }, [list.cards]);
 
-  // Function to add a new card to the list
+  // Function to add a new card
   function addCard() {
     const newCards = [...cards, ""];
     setCards(newCards);
@@ -68,7 +68,10 @@ function List({ list, updateCards }) {
           />
         ))}
       </ul>
-      <Button onClick={addCard}>Add new Card</Button>
+      <div className={styles.buttons}>
+        <Button onClick={addCard}>Add new Card</Button>
+        <Button remove onClick={removeList} />
+      </div>
     </div>
   );
 }

@@ -6,15 +6,16 @@ function Dashboard() {
   const email = localStorage.getItem("email");
   const password = localStorage.getItem("password");
 
+  // route protecting
   if (!email || !password) {
     return <Navigate to="/login" replace />;
   }
 
   return (
-    <div>
+    <>
       <Header />
       <ListsTable />
-    </div>
+    </>
   );
 }
 

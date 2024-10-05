@@ -16,3 +16,22 @@
   background-color: var(--color-brand-300);
   box-shadow: var(--shadow-md);
 }
+
+.buttonRemove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  border: none;
+  border-radius: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  color: var(--color-brand-900);
+  background-color: var(--color-brand-200);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buttonRemove:hover {
+  background-color: var(--color-brand-300);
+  box-shadow: var(--shadow-md);
+}

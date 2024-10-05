@@ -1,6 +1,7 @@
 import styles from "./ListsTable.module.css";
 import { useState } from "react";
 import List from "./List";
+import AddListForm from "./AddListForm";
 import Button from "../ui/Button";
 
 function ListsTable() {
@@ -80,6 +81,12 @@ function ListsTable() {
     setNewlist("");
   }
 
+  // Function to remove a list by index
+  function removeList(index) {
+    const newLists = lists.filter((_, i) => i !== index);
+    setLists(newLists);
+  }
+
   return (
     <ul className={styles.listsTable}>
       {lists.map((list, index) => (
@@ -96,18 +103,16 @@ function ListsTable() {
           <List
             list={list}
             updateCards={(newCards) => updateCards(index, newCards)}
+            removeList={() => removeList(index)}
           />
         </li>
       ))}
       <li>
-        <form className={styles.listForm} onSubmit={() => addList(newList)}>
-          <input
-            type="text"
-            value={newList}
-            onChange={(e) => setNewlist(e.target.value)}
-          />
-          <Button>Add new List</Button>
-        </form>
+        <AddListForm
+          value={newList}
+          onChange={(e) => setNewlist(e.target.value)}
+          onSubmit={() => addList(newList)}
+        />
       </li>
     </ul>
   );
