@@ -3,7 +3,6 @@
   max-height: 50rem;
   overflow: scroll;
   padding: 1rem;
-  border: 1px solid var(--color-blue-700);
   border-radius: 1.5rem;
   cursor: move;
   transition: transform 0.5s;

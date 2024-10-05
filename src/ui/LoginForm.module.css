@@ -6,6 +6,8 @@
   width: 40rem;
   margin: 0 auto;
   box-shadow: var(--shadow-lg);
+  z-index: 10;
+  opacity: 90%;
 }
 
 .form div {
