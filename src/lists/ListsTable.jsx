@@ -1,12 +1,19 @@
+import React, { useState } from "react";
 import styles from "./ListsTable.module.css";
-import { useState } from "react";
 import List from "./List";
 import AddListForm from "./AddListForm";
-import Button from "../ui/Button";
+import useLists from "../hooks/useLists";
 
 function ListsTable() {
-  // Initial state for test
-  const [lists, setLists] = useState([
+  const {
+    lists,
+    addList,
+    removeList,
+    updateCards,
+    handleDragStart,
+    handleDrop,
+    draggedListIndex,
+  } = useLists([
     {
       title: "days",
       cards: [
@@ -41,51 +48,8 @@ function ListsTable() {
       cards: ["Winter", "Spring", "Summer", "Autumn"],
     },
   ]);
-  // State to manage new list
+
   const [newList, setNewlist] = useState("");
-
-  // State to track the index of the list being dragged
-  const [draggedListIndex, setDraggedListIndex] = useState(null);
-
-  // Function to handle the start of dragging a list
-  function handleDragStart(index) {
-    setDraggedListIndex(index);
-  }
-
-  // Function to allow dropping by preventing the default behavior
-  function handleDragOver(event) {
-    event.preventDefault();
-  }
-
-  // Function to handle dropping a list at a new position
-  function handleDrop(index) {
-    const newLists = [...lists];
-    const [movedList] = newLists.splice(draggedListIndex, 1);
-    newLists.splice(index, 0, movedList);
-    setLists(newLists);
-    setDraggedListIndex(null);
-  }
-
-  // Function to update the cards of a specific list
-  function updateCards(listIndex, newCards) {
-    const newLists = lists.map((list, index) =>
-      index === listIndex ? { ...list, cards: newCards } : list
-    );
-    setLists(newLists);
-  }
-
-  // Function to create new list
-  function addList() {
-    if (!newList) return;
-    setLists([...lists, { title: newList, cards: [] }]);
-    setNewlist("");
-  }
-
-  // Function to remove a list by index
-  function removeList(index) {
-    const newLists = lists.filter((_, i) => i !== index);
-    setLists(newLists);
-  }
 
   return (
     <ul className={styles.listsTable}>
@@ -94,7 +58,7 @@ function ListsTable() {
           key={index}
           draggable
           onDragStart={() => handleDragStart(index)}
-          onDragOver={handleDragOver}
+          onDragOver={(e) => e.preventDefault()}
           onDrop={() => handleDrop(index)}
           className={`${styles.list} ${
             draggedListIndex === index ? styles.dragging : ""
@@ -111,7 +75,10 @@ function ListsTable() {
         <AddListForm
           value={newList}
           onChange={(e) => setNewlist(e.target.value)}
-          onSubmit={() => addList(newList)}
+          onSubmit={() => {
+            addList(newList);
+            setNewlist(""); // Clear the input after adding the list
+          }}
         />
       </li>
     </ul>

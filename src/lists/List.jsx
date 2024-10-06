@@ -1,55 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./List.module.css";
 import Button from "../ui/Button";
 import Card from "./Card";
+import useCards from "../hooks/useCards";
 
 function List({ list, updateCards, removeList }) {
-  // State to manage the list of cards
-  const [cards, setCards] = useState(list.cards);
-  // State to track which card is being edited
-  const [editingIndex, setEditingIndex] = useState(null);
+  const {
+    cards,
+    editingIndex,
+    addCard,
+    handleCardChange,
+    handleEditClick,
+    handleBlur,
+    handleKeyDown,
+  } = useCards(list.cards);
 
-  // To update the cards state when the list prop changes
+  const prevCardsRef = useRef(cards);
+
   useEffect(() => {
-    setCards(list.cards);
-  }, [list.cards]);
-
-  // Function to add a new card
-  function addCard() {
-    const newCards = [...cards, ""];
-    setCards(newCards);
-    updateCards(newCards);
-    setEditingIndex(cards.length);
-  }
-
-  // Function to handle changes in the card input field
-  function handleCardChange(index, event) {
-    const updatedCards = [...cards];
-    updatedCards[index] = event.target.value;
-    const filteredCards = updatedCards.filter((card) => card !== "");
-    setCards(filteredCards);
-    updateCards(filteredCards);
-  }
-
-  // Function to handle the edit button click
-  function handleEditClick(index) {
-    setEditingIndex(index);
-  }
-
-  // Function to handle when the input field loses focus
-  function handleBlur() {
-    setEditingIndex(null);
-    const filteredCards = cards.filter((card) => card !== "");
-    setCards(filteredCards);
-    updateCards(filteredCards);
-  }
-
-  // Function to handle the Enter key press
-  function handleKeyDown(event) {
-    if (event.key === "Enter") {
-      handleBlur();
+    if (JSON.stringify(prevCardsRef.current) !== JSON.stringify(cards)) {
+      updateCards(cards);
+      prevCardsRef.current = cards;
     }
-  }
+  }, [cards, updateCards]);
 
   return (
     <div className={styles.list}>
