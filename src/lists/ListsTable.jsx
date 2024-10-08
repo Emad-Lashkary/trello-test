@@ -12,6 +12,7 @@ function ListsTable() {
     updateCards,
     handleDragStart,
     handleDrop,
+    handleDragEnd,
     draggedListIndex,
   } = useLists([
     {
@@ -60,6 +61,7 @@ function ListsTable() {
           onDragStart={() => handleDragStart(index)}
           onDragOver={(e) => e.preventDefault()}
           onDrop={() => handleDrop(index)}
+          onDragEnd={handleDragEnd}
           className={`${styles.list} ${
             draggedListIndex === index ? styles.dragging : ""
           }`}

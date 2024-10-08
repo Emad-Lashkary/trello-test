@@ -36,6 +36,11 @@ function useLists(initialLists) {
     setDraggedListIndex(index);
   }
 
+  // Handles the end of dragging. Resets the draggedListIndex state.
+  function handleDragEnd() {
+    setDraggedListIndex(null);
+  }
+
   //Handles dropping a list at a new position. Moves the draged list to the new position in the state.
   function handleDrop(index) {
     const newLists = [...lists];
@@ -52,6 +57,7 @@ function useLists(initialLists) {
     updateCards,
     handleDragStart,
     handleDrop,
+    handleDragEnd,
     draggedListIndex,
   };
 }

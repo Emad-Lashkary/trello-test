@@ -8,14 +8,14 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  function handleLogin(e) {
     e.preventDefault();
     // Save email and password to local storage
     localStorage.setItem("email", email);
     localStorage.setItem("password", password);
     // Navigate to dashboard
     navigate("/dashboard");
-  };
+  }
 
   return (
     <form className={styles.form} onSubmit={handleLogin}>
